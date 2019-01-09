@@ -4,6 +4,8 @@ const fs = require('fs');
 
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 hbs.registerPartials(__dirname + "/views/partials");
 app.set('view engine', 'html');
 
@@ -14,7 +16,7 @@ app.use((request, response, next) => {
     var now = new Date().toString();
     var log = `${now}: ${request.method} ${request.url}`;
     console.log(log);
-    fs.appendFile('service.log', log, (err) =>{
+    fs.appendFile('server.log', log, (err) =>{
         if(err) {
             console.log(err);
         }
@@ -61,4 +63,4 @@ app.get('/bad', (request, response) => {
     });
 });
 
-app.listen(3000, () => console.log('Listening on Port 3000'));
+app.listen(port, () => console.log(`Listening on Port ${port}`));
